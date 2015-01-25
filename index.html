@@ -47,6 +47,19 @@
           <p>January 27, 2015</p>
 				</section>
 
+				<section>
+					<h2>Hello World in Node.js</h2>
+					<pre><code data-trim contenteditable>
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:1337/');
+					</code></pre>
+					<p>Taken from the <a href="http://nodejs.org/">Node.js Home Page</a></p>
+				</section>
+
 			</div>
 
 		</div>
