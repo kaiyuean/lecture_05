@@ -60,6 +60,89 @@ console.log('Server running at http://127.0.0.1:1337/');
 					<p>Taken from the <a href="http://nodejs.org/">Node.js Home Page</a></p>
 				</section>
 
+				<section>
+					<h2>Explanation (1)</h2>
+					<pre><code data-trim contenteditable>
+var http = require('http');
+					</code></pre>
+          <ul>
+            <li>Most code in node is packaged inside of a module</li>
+            <li><strong>http</strong> is a core module, provided by Node.js itself</li>
+            <li>The <strong>require</strong> function will look for modules in a variety of locations
+              <ul>
+                <li>built-in modules</li>
+                <li>globally-installed modules</li>
+                <li>project-specific modules</li>
+              </ul>
+            </li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Explanation (2)</h2>
+					<pre><code data-trim contenteditable>
+http.createServer(&lt;function&gt;).listen(1337, '127.0.0.1');
+					</code></pre>
+          <ul>
+						<li><strong>http</strong> provides a function called <strong>createServer()</strong></li>
+						<li>It takes a function that implements the server's behavior</li>
+						<li><strong>createServer()</strong> returns an object with a method <strong>listen()</strong>
+              <ul>
+                <li>It accepts the server's network interface and port</li>
+                <li>It also starts the server running</li>
+              </ul>
+            </li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Explanation (3)</h2>
+					<pre><code data-trim contenteditable>
+function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}
+					</code></pre>
+					<ul>
+						<li>This is the <em>anonymous</em> function passed to <strong>createServer()</strong>.</li>
+						<li>Each time the server receives a request
+							<ul>
+								<li>It invokes this function and passes the HTTP request and response objects</li>
+							</ul>
+						</li>
+						<li>This particular function ignores all input and generates a simple HTTP response.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Explanation (4)</h2>
+					<pre><code data-trim contenteditable>
+console.log('Server running at http://127.0.0.1:1337/');
+					</code></pre>
+					<ul>
+						<li><strong>console.log()</strong> is the <strong>printf()</strong> of the Javascript world.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Explanation (5)</h2>
+					<p>Our program in abstract form</p>
+					<pre><code data-trim contenteditable>
+1. Get the http module.
+2. Create a server; register a function; start a server.
+3. Print out a message.
+					</code></pre>
+					<ul>
+						<li>All of this is executed immediately when passed to <strong>node</strong></li>
+						<li>If no future work remained, <strong>node</strong> would shut down.</li>
+						<li>This particular program, however, will run forever
+							<ul>
+								<li>because the HTTP server has set up an event to check for new requests on every event cycle</li>
+						</li>
+					</ul>
+				</section>
+
+
 			</div>
 
 		</div>
