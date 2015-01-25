@@ -142,6 +142,147 @@ console.log('Server running at http://127.0.0.1:1337/');
 					</ul>
 				</section>
 
+				<section>
+					<h2>Event Loop?</h2>
+					<ul>
+						<li>In order to understand Node.js, you need to understand the <em>event loop</em></li>
+						<li>Event-based programming is a programming style where the code you write is not in control
+							<ul>
+								<li>Instead, you write code that says (essentially)<br>"When event x happens, do this"</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Event Loop (1)</h2>
+					<p>The basic structure of all Node.js programs</p>
+					<pre><code data-trim contenteditable>
+while (there are events to be handled) {
+	handle event
+}
+					</code></pre>
+					<p>This is how GUI programs are written.</p>
+					<p>"If user click here, do this."</p>
+				</section>
+
+				<section>
+					<h2>Event Loop (2)</h2>
+					<ul>
+						<li>Node tries to make it easy to add work to the event queue</li>
+						<li>Libraries like <strong>http</strong> take functions and add them to the queue on your behalf (as we saw with <strong>createServer()</strong>).</li>
+						<li>Node also lets you add functions to the event queue for later execution.
+							<ul>
+								<li>process.nextTick()</li>
+								<li>setImmediate()</li>
+								<li>setTimeout()</li>
+								<li>setInterval()</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Event Loop (3) &mdash; process.nextTick()</h2>
+					<p>A simple example using process.nextTick()</p>
+					<pre><code data-trim contenteditable>
+console.log("first!");
+process.nextTick(function() {
+  console.log("third!");
+});
+console.log("second!");
+					</code></pre>
+					<ul>
+						<li>Our main program is simply a function passed to the event loop</li>
+						<li>On the first pass: log(), nextTick(), log()</li>
+						<li>On the second pass: log()</li>
+						<li>Since there are no more events, the program ends.</li>
+					<ul>
+				</section>
+
+				<section>
+					<h2>Event Loop (4)</h2>
+					<ul>
+						<li>Our program would behave the same if you replaced process.nextTick() with setImmediate()</li>
+						<li>They both schedule a function for the next iteration of the event loop.
+							<ul>
+								<li>The difference is that setImmediate() allows IO-related callbacks to process first.</li>
+								<li>process.nextTick() will prioritize your function before IO-related callbacks, possibly causing IO starvation</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Event Loop (5)</h2>
+					<ul>
+						<li>setTimeout() takes a second parameter that specifies how long to wait before the function is executed.</li>
+						<li>setInterval() take a second parameter that specifies the interval at which this function should be executed.
+							<ul>
+								<li>If the interval is never turned off, the node program will execute "forever".</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Callback Hell (1)</h2>
+					<p>Callbacks are great for asynchronous programming, but...</p>
+					<p>It can lead to <em>callback hell</em>, where callbacks get indented</p>
+				  <p><a href="images/callBackHell.png"><img height="518" src="images/callBackHell.png"></a></p>
+				</section>
+
+				<section>
+					<h2>Callback Hell (2)</h2>
+					<p>Here the callbacks have been highlighted...</p>
+				  <p><a href="images/callBacksHighlighted.png"><img height="518" src="images/callBacksHighlighted.png"></a></p>
+				</section>
+
+				<section>
+					<h2>Callback Hell (3)</h2>
+					<ul>
+						<li>The problem occurs when you have to chain multiple asynchronous calls together</li>
+						<li>Each call in the chain has to be in a callback on the previous function
+							<ul>
+								<li>because you have to wait for the previous call to finish</li>
+								<li>before you proceed</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Callback Hell (4)</h2>
+					<ul>
+						<li>Two ways to solve this problem:
+							<ul>
+								<li>Use synchronous functions instead
+									<ul>
+										<li>frowned upon by the Node community</li>
+									</ul>
+								</li>
+								<li>Use named callback functions
+									<ul>
+										<li>Define your functions individually</li>
+										<li>Then refer to them by name in the code that requires a callback</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Callback Hell (5)</h2>
+					<p>Fixing with Named Callbacks</p>
+				  <p><a href="images/namedCallbacks.png"><img height="518" src="images/namedCallbacks.png"></a></p>
+				</section>
+
+				<section>
+					<h2>Callback Hell (6)</h2>
+					<p>Here the callbacks have been highlighted...</p>
+				  <p><a href="images/namedCallbacksHighlighted.png"><img height="518" src="images/namedCallbacksHighlighted.png"></a></p>
+				</section>
 
 			</div>
 
