@@ -284,6 +284,48 @@ console.log("second!");
 				  <p><a href="images/namedCallbacksHighlighted.png"><img height="518" src="images/namedCallbacksHighlighted.png"></a></p>
 				</section>
 
+				<section>
+					<h2>Node Execution Model (1)</h2>
+					<ul>
+						<li>For user-written code, Node is single threaded!</li>
+						<li>Any code that you write is guaranteed to be synchronous</li>
+						<li>You do not have to worry about race conditions</li>
+						<li>IO is handled in parallel.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Node Execution Model (2)</h2>
+					<ul>
+						<li>If you issue an asyncrhonous call for IO
+							<ul>
+								<li>Your callback is registered</li>
+								<li>The IO call is executed in a separate thread
+									<ul>
+										<li>Since it's an IO call, it immediately blocks</li>
+									</ul>
+								</li>
+								<li>Other events on the event loop are handled as normal</li>
+								<li>At some point, the IO completes and your callback is invoked
+									<ul>
+										<li>Invoked via setImmediate() or process.nextTick()</li>
+										<li>So, even then, your code executes in a single thread</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Node Execution Model (3)</h2>
+					<ul>
+						<li>This model makes it very easy to implement services that run server-side.</li>
+						<li>You are guaranteed that only one method of your service is running at any one time.</li>
+						<li>You are now in a position to understand the Javascript implementation of the Contacts web service</li>
+					</ul>
+				</section>
+
 			</div>
 
 		</div>
