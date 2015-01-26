@@ -169,7 +169,7 @@ while (there are events to be handled) {
 				<section>
 					<h2>Event Loop (2)</h2>
 					<ul>
-						<li>Node tries to make it easy to add work to the event queue</li>
+						<li>Node tries to make it easy to <a href="http://nodejs.org/api/timers.html">add work to the event queue</a></li>
 						<li>Libraries like <strong>http</strong> take functions and add them to the queue on your behalf (as we saw with <strong>createServer()</strong>).</li>
 						<li>Node also lets you add functions to the event queue for later execution.
 							<ul>
@@ -323,6 +323,14 @@ console.log("second!");
 						<li>This model makes it very easy to implement services that run server-side.</li>
 						<li>You are guaranteed that only one method of your service is running at any one time.</li>
 						<li>You are now in a position to understand the Javascript implementation of the Contacts web service</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Hands-On Demo</h2>
+					<ul>
+						<li>Let's try a few things in class together</li>
+						<li>Does everyone have Node installed?</li>
 					</ul>
 				</section>
 
